@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoneyPrinter V2</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <nav id="sidebar">
+    <div class="sidebar-header">
+      <h1>💸 MPV2</h1>
+      <span class="subtitle">MoneyPrinter V2</span>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">MODULES</div>
+      <button class="nav-btn active" data-page="dashboard">
+        <span class="icon">📊</span> Dashboard
+      </button>
+      <button class="nav-btn" data-page="youtube">
+        <span class="icon">🎬</span> YouTube Shorts
+      </button>
+      <button class="nav-btn" data-page="twitter">
+        <span class="icon">🐦</span> Twitter Bot
+      </button>
+      <button class="nav-btn" data-page="afm">
+        <span class="icon">🛒</span> Affiliate Marketing
+      </button>
+      <button class="nav-btn" data-page="outreach">
+        <span class="icon">📧</span> Outreach
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">SYSTEM</div>
+      <button class="nav-btn" data-page="settings">
+        <span class="icon">⚙️</span> Settings
+      </button>
+    </div>
+
+    <div class="sidebar-footer">
+      <div id="model-badge" class="model-badge" title="Active Ollama model">
+        No model
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content area -->
+  <main id="content">
+
+    <!-- ==================== DASHBOARD ==================== -->
+    <section id="page-dashboard" class="page active">
+      <div class="page-header">
+        <h2>Dashboard</h2>
+        <p class="page-desc">Welcome to MoneyPrinter V2. Select a module to get started.</p>
+      </div>
+
+      <div class="card-grid">
+        <div class="dash-card" data-goto="youtube">
+          <div class="dash-icon">🎬</div>
+          <h3>YouTube Shorts</h3>
+          <p>Generate and upload AI-powered short videos automatically.</p>
+          <span id="yt-account-count" class="badge">0 accounts</span>
+        </div>
+        <div class="dash-card" data-goto="twitter">
+          <div class="dash-icon">🐦</div>
+          <h3>Twitter Bot</h3>
+          <p>Auto-generate and post tweets on autopilot.</p>
+          <span id="tw-account-count" class="badge">0 accounts</span>
+        </div>
+        <div class="dash-card" data-goto="afm">
+          <div class="dash-icon">🛒</div>
+          <h3>Affiliate Marketing</h3>
+          <p>Scrape Amazon products and share AI-written pitches on Twitter.</p>
+          <span id="afm-product-count" class="badge">0 products</span>
+        </div>
+        <div class="dash-card" data-goto="outreach">
+          <div class="dash-icon">📧</div>
+          <h3>Outreach</h3>
+          <p>Scrape local businesses from Google Maps and send cold emails.</p>
+        </div>
+      </div>
+
+      <div class="card mt">
+        <h3>Ollama Model</h3>
+        <p class="muted">Select the LLM that powers all text generation.</p>
+        <div class="row gap">
+          <select id="dash-model-select" class="select"></select>
+          <button id="dash-model-btn" class="btn btn-primary">Activate</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== YOUTUBE ==================== -->
+    <section id="page-youtube" class="page">
+      <div class="page-header">
+        <h2>🎬 YouTube Shorts</h2>
+        <p class="page-desc">Manage accounts, generate videos, and upload to YouTube.</p>
+      </div>
+
+      <!-- Account list -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Accounts</h3>
+          <button id="yt-add-btn" class="btn btn-primary btn-sm">+ Add Account</button>
+        </div>
+        <table class="table" id="yt-accounts-table">
+          <thead>
+            <tr><th>Nickname</th><th>Niche</th><th>Language</th><th>Videos</th><th>Actions</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="yt-empty" class="empty-state">No YouTube accounts yet. Add one above.</div>
+      </div>
+
+      <!-- Add account form (hidden) -->
+      <div id="yt-form" class="card hidden">
+        <h3>New YouTube Account</h3>
+        <div class="form-grid">
+          <label>Nickname <input id="yt-nickname" type="text" placeholder="My Channel" /></label>
+          <label>Firefox Profile Path <input id="yt-profile" type="text" placeholder="/path/to/profile" /></label>
+          <label>Niche <input id="yt-niche" type="text" placeholder="e.g. Tech, Cooking" /></label>
+          <label>Language <input id="yt-language" type="text" value="English" /></label>
+        </div>
+        <div class="row gap mt">
+          <button id="yt-save-btn" class="btn btn-primary">Save</button>
+          <button id="yt-cancel-btn" class="btn btn-ghost">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Videos table (shown when an account is selected) -->
+      <div id="yt-videos-section" class="card hidden">
+        <div class="card-header">
+          <h3>Videos — <span id="yt-videos-nick"></span></h3>
+          <button id="yt-back-btn" class="btn btn-ghost btn-sm">← Back</button>
+        </div>
+        <table class="table" id="yt-videos-table">
+          <thead>
+            <tr><th>Title</th><th>Date</th><th>URL</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="yt-videos-empty" class="empty-state">No videos yet.</div>
+      </div>
+
+      <!-- Task progress -->
+      <div id="yt-task-card" class="card hidden">
+        <h3>Task Progress</h3>
+        <div id="yt-task-status" class="task-status">Waiting…</div>
+        <div id="yt-task-result" class="task-result"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TWITTER ==================== -->
+    <section id="page-twitter" class="page">
+      <div class="page-header">
+        <h2>🐦 Twitter Bot</h2>
+        <p class="page-desc">Manage accounts, generate AI tweets, and auto-post.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Accounts</h3>
+          <button id="tw-add-btn" class="btn btn-primary btn-sm">+ Add Account</button>
+        </div>
+        <table class="table" id="tw-accounts-table">
+          <thead>
+            <tr><th>Nickname</th><th>Topic</th><th>Posts</th><th>Actions</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="tw-empty" class="empty-state">No Twitter accounts yet. Add one above.</div>
+      </div>
+
+      <div id="tw-form" class="card hidden">
+        <h3>New Twitter Account</h3>
+        <div class="form-grid">
+          <label>Nickname <input id="tw-nickname" type="text" placeholder="My Twitter" /></label>
+          <label>Firefox Profile Path <input id="tw-profile" type="text" placeholder="/path/to/profile" /></label>
+          <label>Topic <input id="tw-topic" type="text" placeholder="e.g. AI, Fitness" /></label>
+        </div>
+        <div class="row gap mt">
+          <button id="tw-save-btn" class="btn btn-primary">Save</button>
+          <button id="tw-cancel-btn" class="btn btn-ghost">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Posts table -->
+      <div id="tw-posts-section" class="card hidden">
+        <div class="card-header">
+          <h3>Posts — <span id="tw-posts-nick"></span></h3>
+          <button id="tw-back-btn" class="btn btn-ghost btn-sm">← Back</button>
+        </div>
+        <table class="table" id="tw-posts-table">
+          <thead>
+            <tr><th>Content</th><th>Date</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="tw-posts-empty" class="empty-state">No posts yet.</div>
+      </div>
+
+      <div id="tw-task-card" class="card hidden">
+        <h3>Task Progress</h3>
+        <div id="tw-task-status" class="task-status">Waiting…</div>
+        <div id="tw-task-result" class="task-result"></div>
+      </div>
+    </section>
+
+    <!-- ==================== AFFILIATE MARKETING ==================== -->
+    <section id="page-afm" class="page">
+      <div class="page-header">
+        <h2>🛒 Affiliate Marketing</h2>
+        <p class="page-desc">Generate AI pitches for Amazon products and share on Twitter.</p>
+      </div>
+
+      <div class="card">
+        <h3>Run New Pitch</h3>
+        <div class="form-grid">
+          <label>Amazon Affiliate Link <input id="afm-link" type="url" placeholder="https://amazon.com/dp/..." /></label>
+          <label>Twitter Account
+            <select id="afm-twitter-select" class="select">
+              <option value="">— select account —</option>
+            </select>
+          </label>
+        </div>
+        <div class="row gap mt">
+          <button id="afm-run-btn" class="btn btn-primary">Generate & Share Pitch</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Previous Products</h3>
+        <table class="table" id="afm-products-table">
+          <thead>
+            <tr><th>Affiliate Link</th><th>Twitter Account</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="afm-empty" class="empty-state">No products yet.</div>
+      </div>
+
+      <div id="afm-task-card" class="card hidden">
+        <h3>Task Progress</h3>
+        <div id="afm-task-status" class="task-status">Waiting…</div>
+        <div id="afm-task-result" class="task-result"></div>
+      </div>
+    </section>
+
+    <!-- ==================== OUTREACH ==================== -->
+    <section id="page-outreach" class="page">
+      <div class="page-header">
+        <h2>📧 Outreach</h2>
+        <p class="page-desc">Scrape local businesses from Google Maps and send cold-email campaigns.</p>
+      </div>
+
+      <div class="card">
+        <h3>Start Outreach</h3>
+        <p class="muted">This will download the Google Maps scraper (requires Go), scrape businesses for the configured niche, extract emails, and send cold-outreach emails. Configure the niche and email in Settings first.</p>
+        <div class="row gap mt">
+          <button id="outreach-run-btn" class="btn btn-primary">Start Outreach Process</button>
+        </div>
+      </div>
+
+      <div id="outreach-task-card" class="card hidden">
+        <h3>Task Progress</h3>
+        <div id="outreach-task-status" class="task-status">Waiting…</div>
+        <div id="outreach-task-result" class="task-result"></div>
+      </div>
+    </section>
+
+    <!-- ==================== SETTINGS ==================== -->
+    <section id="page-settings" class="page">
+      <div class="page-header">
+        <h2>⚙️ Settings</h2>
+        <p class="page-desc">Edit your config.json values. Sensitive keys are masked.</p>
+      </div>
+
+      <div class="card">
+        <div id="settings-form" class="settings-grid"></div>
+        <div class="row gap mt">
+          <button id="settings-save-btn" class="btn btn-primary">Save Settings</button>
+          <button id="settings-reload-btn" class="btn btn-ghost">Reload</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast container -->
+  <div id="toasts"></div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
